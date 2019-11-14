@@ -35,3 +35,4 @@ WTForms==2.1
 SQLAlchemy-ImageAttach
 flask-bootstrap
 Flask-JWT
+gunicorn
