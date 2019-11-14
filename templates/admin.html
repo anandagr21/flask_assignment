@@ -1,2 +1,90 @@
 <!-- Admin page to see details -->
-<h1>admin</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <p class="lead">
+        <a class="btn btn-primary btn-block" href="/seeUsers" role="button"
+          >See Users</a
+        >
+      </p>
+      <p class="lead">
+        <a class="btn btn-primary btn-block" href="/seeProducts" role="button"
+          >See Products</a
+        >
+      </p>
+    </div>
+
+    <div class="container">
+      
+      <table class="table table-hover">
+        {% if users %}
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+                {% for user in users %}
+                <tr>
+                   <td>{{ user.name }}</td>
+                   <td>{{ user.username }}</td>
+                   <td>{{ user.email }}</td>
+                </tr>
+             {% endfor %}
+        </tbody>
+       {% endif %}
+
+
+
+       {% if products %}
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+                {% for product in products %}
+                <tr>
+                   <td>{{ product.name }}</td>
+                   <td>{{ product.description }}</td>
+                   <td>{{ product.price }}</td>
+                </tr>
+             {% endfor %}
+        </tbody>
+       {% endif %}
+      </table>
+    </div>
+  </body>
+</html>
