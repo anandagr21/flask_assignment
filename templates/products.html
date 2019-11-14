@@ -13,8 +13,8 @@ Add Products
 {% block content %}
     <div class="container">
 
-      <form class="form-signin" method="POST" action="/addProducts">
-        <h2 class="form-signin-heading">Add Products</h2>
+      <form class="form-products" method="POST" action="/addProducts">
+        <h2 class="form-products-heading">Add Products</h2>
         {{ form.hidden_tag() }}
         {{ wtf.form_field(form.name) }}
         {{ wtf.form_field(form.description) }}

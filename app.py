@@ -68,13 +68,19 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
+        admin = form.username.data 
+        adm_pass = form.password.data
+        if admin == "admin" and adm_pass == "password":
+            return render_template('admin.html')
+
+    if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if check_password_hash(user.password, form.password.data):
                 # login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
 
-        return '<h1>Invalid username or password</h1>'
+       
         
 
     return render_template('signin.html', form=form)
