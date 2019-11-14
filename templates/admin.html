@@ -43,7 +43,6 @@
     </div>
 
     <div class="container">
-      
       <table class="table table-hover">
         {% if users %}
         <thead>
@@ -54,19 +53,15 @@
           </tr>
         </thead>
         <tbody>
-                {% for user in users %}
-                <tr>
-                   <td>{{ user.name }}</td>
-                   <td>{{ user.username }}</td>
-                   <td>{{ user.email }}</td>
-                </tr>
-             {% endfor %}
+          {% for user in users %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+          </tr>
+          {% endfor %}
         </tbody>
-       {% endif %}
-
-
-
-       {% if products %}
+        {% endif %} {% if products %}
         <thead>
           <tr>
             <th>Product Name</th>
@@ -75,15 +70,15 @@
           </tr>
         </thead>
         <tbody>
-                {% for product in products %}
-                <tr>
-                   <td>{{ product.name }}</td>
-                   <td>{{ product.description }}</td>
-                   <td>{{ product.price }}</td>
-                </tr>
-             {% endfor %}
+          {% for product in products %}
+          <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+          </tr>
+          {% endfor %}
         </tbody>
-       {% endif %}
+        {% endif %}
       </table>
     </div>
   </body>

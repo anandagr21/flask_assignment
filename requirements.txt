@@ -36,3 +36,5 @@ SQLAlchemy-ImageAttach
 flask-bootstrap
 Flask-JWT
 gunicorn
+uwsgi
+psycopg2
