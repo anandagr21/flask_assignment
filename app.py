@@ -7,6 +7,8 @@ from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy  import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_imageattach.entity import Image, image_attachment
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'appsecretkey'
@@ -17,6 +19,15 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+''' Products Database '''
+class Products(db.Model):
+    _id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(30),unique=False)
+    price = db.Column(db.Integer(10),unique=False)
+
+
+
 
 
 class User(UserMixin, db.Model):
