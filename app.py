@@ -7,8 +7,8 @@ from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy  import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy_imageattach.entity import Image, image_attachment
+#from sqlalchemy.ext.declarative import declarative_base
+#from sqlalchemy_imageattach.entity import Image, image_attachment
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'appsecretkey'
@@ -24,7 +24,9 @@ login_manager.login_view = 'login'
 class Products(db.Model):
     _id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(30),unique=False)
-    price = db.Column(db.Integer(10),unique=False)
+    description = db.Column(db.String(100),unique=False)
+    price = db.Column(db.Integer,unique=False)
+    __tablename__ = 'product'
 
 
 
@@ -49,6 +51,12 @@ class RegisterForm(FlaskForm):
     email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+
+class addProductForm(FlaskForm):
+    name = StringField('name', validators=[InputRequired(), Length(max=30)])
+    price = StringField('price', validators=[InputRequired(), Length(min=1, max=10)])
+    description = StringField('description', validators=[Length(max=100)])
+    
 
 
 @app.route('/')
@@ -85,6 +93,18 @@ def signup():
         
 
     return render_template('signup.html', form=form)
+
+@app.route('/addProducts', methods=['GET', 'POST'])
+def addProducts():
+    form = addProductForm()
+
+    if form.validate_on_submit():
+        new_product = Products(name = form.name.data,price = form.price.data,description=form.description.data)
+        db.session.add(new_product)
+        db.session.commit()
+        
+
+    return render_template('products.html', form=form)
 
 @app.route('/dashboard')
 @login_required
