@@ -1,0 +1,4 @@
+To login with admin user
+
+username = admin
+password = password
