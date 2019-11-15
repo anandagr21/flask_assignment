@@ -8,9 +8,7 @@ from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-#import flask_whooshalchemy as wa
-#from sqlalchemy.ext.declarative import declarative_base
-#from sqlalchemy_imageattach.entity import Image, image_attachment
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'appsecretkey'
@@ -18,7 +16,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
     os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['WHOOSH_BASE'] = 'whoosh'
+
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -36,9 +34,6 @@ class Products(db.Model):
     description = db.Column(db.String(100), unique=False)
     price = db.Column(db.Integer, unique=False)
     __tablename__ = 'product'
-
-
-#wa.whoosh_index(app, Course)
 
 
 class User(UserMixin, db.Model):
