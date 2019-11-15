@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, redirect, url_for
+from fulltext import *
+from flask import Flask, render_template, redirect, url_for,request
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
@@ -7,6 +8,7 @@ from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+#import flask_whooshalchemy as wa
 #from sqlalchemy.ext.declarative import declarative_base
 #from sqlalchemy_imageattach.entity import Image, image_attachment
 
@@ -15,6 +17,8 @@ app.config['SECRET_KEY'] = 'appsecretkey'
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
     os.path.join(basedir, 'database.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['WHOOSH_BASE'] = 'whoosh'
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -25,11 +29,16 @@ login_manager.login_view = 'login'
 
 
 class Products(db.Model):
+
+    __searchable__ = ['name', 'description', 'price']
     _id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=False)
     description = db.Column(db.String(100), unique=False)
     price = db.Column(db.Integer, unique=False)
     __tablename__ = 'product'
+
+
+#wa.whoosh_index(app, Course)
 
 
 class User(UserMixin, db.Model):
@@ -65,6 +74,8 @@ class addProductForm(FlaskForm):
     price = StringField('price', validators=[
                         InputRequired(), Length(min=1, max=10)])
     description = StringField('description', validators=[Length(max=100)])
+
+
 
 
 @app.route('/')
@@ -127,11 +138,17 @@ def seeProducts():
 
     return render_template('admin.html', products=Products.query.all())
 
+
 @app.route('/seeUsers')
 def seeUsers():
 
     return render_template('admin.html', users=User.query.all())
 
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    text = request.form['search']
+    return text
 
 @app.route('/dashboard')
 @login_required
