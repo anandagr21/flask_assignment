@@ -39,5 +39,3 @@ gunicorn
 uwsgi
 psycopg2
 Whoosh==2.6.0
-fulltext
-flask-whoosealchemy
