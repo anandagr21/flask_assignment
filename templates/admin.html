@@ -36,7 +36,15 @@
         >See Products</a
       >
     </div>
+    {% if products %}
+    <div class="container">
+      <h4>Total products = {{ countProducts }}</h4>
+    </div>{% endif %}
 
+    {% if users %}
+    <div class="container">
+      <h4>Total Users = {{ countUsers }}</h4>
+    </div>{% endif %}
     <div class="container">
       <table class="table table-hover">
         {% if users %}

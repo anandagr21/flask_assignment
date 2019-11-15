@@ -127,15 +127,14 @@ def addProducts():
 
 
 @app.route('/seeProducts')
-@login_required
 def seeProducts():
-    return render_template('admin.html', products=Products.query.all())
+    return render_template('admin.html', products=Products.query.all(),countProducts = Products.query.count())
 
 
 @app.route('/seeUsers')
 def seeUsers():
 
-    return render_template('admin.html', users=User.query.all())
+    return render_template('admin.html', users=User.query.all(),countUsers = User.query.count())
 
 
 @app.route('/search', methods=['GET', 'POST'])
