@@ -9,7 +9,7 @@ body {
     max-width: 600px;
     height: 320px;
     border: 1px solid #9C9C9C;
-    background-color: #EAEAEA;
+    background-color: rgb(234, 234, 234);
   }
   #login .container #login-row #login-column #login-box #login-form {
     padding: 20px;
