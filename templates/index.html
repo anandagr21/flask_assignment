@@ -1,16 +1,11 @@
-
-
 {% extends "bootstrap/base.html" %} {% block title %} Demo App {% endblock %} {%
 block styles %} {{super()}}
 <link rel="stylesheet" href="{{url_for('.static', filename='index.css')}}" />
-<linkrel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"
+/>
 
-
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-<!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
 {% endblock %} {% block content %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
@@ -35,7 +30,7 @@ block styles %} {{super()}}
         <li class="active"><a href="#">Home</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-        <li><a href="{{ url_for('signup') }}">Add Products</a></li>
+        <li><a href="{{ url_for('addProducts') }}">Add Products</a></li>
       </ul>
     </div>
   </div>
@@ -47,19 +42,48 @@ block styles %} {{super()}}
   </div>
 </div>
 
-
-<form class="search" method="POST" action="/search">
-<div class="input-group md-form form-sm form-1 pl-0">
-  <div class="input-group-prepend">
-    <span class="input-group-text cyan lighten-2" id="basic-text1"><i class="fas fa-search text-white"
-        aria-hidden="true"></i></span>
+<div class="container">
+  <div class="starter-template">
+    <form class="search" method="POST" action="/search">
+      <input
+        class="form-control my-0 py-1 "
+        type="text"
+        placeholder="Search Products"
+        aria-label="Search"
+        name="search"
+      />
+      <span
+        ><button class="btn btn-lg btn-primary btn-block" type="submit">
+          Search
+        </button></span
+      >
+    </form>
   </div>
-  <input class="form-control my-0 py-1 " type="text" placeholder="Search Products" aria-label="Search" name="search">
-  <span><button class="btn btn-lg btn-primary btn-block" type="submit">Search</button></span>
 </div>
-</form>
 
-
+<!-- <div class="input-group md-form form-sm form-1 pl-0" ></div> -->
+<div class="container">
+  <table class="table table-hover">
+    {% if search %}
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Description</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in search %}
+      <tr>
+        <td>{{ s.name }}</td>
+        <td>{{ s.description }}</td>
+        <td>{{ s.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% endif %}
+  </table>
+</div>
 
 <!-- /.container -->
 {% endblock %}

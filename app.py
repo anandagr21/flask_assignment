@@ -1,6 +1,6 @@
 import os
 from fulltext import *
-from flask import Flask, render_template, redirect, url_for,request
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
@@ -76,8 +76,6 @@ class addProductForm(FlaskForm):
     description = StringField('description', validators=[Length(max=100)])
 
 
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -98,7 +96,7 @@ def login():
         if user:
             if check_password_hash(user.password, form.password.data):
                 # login_user(user, remember=form.remember.data)
-                return redirect(url_for('dashboard'))
+                return render_template('index.html')
 
     return render_template('signin.html', form=form)
 
@@ -134,8 +132,8 @@ def addProducts():
 
 
 @app.route('/seeProducts')
+@login_required
 def seeProducts():
-
     return render_template('admin.html', products=Products.query.all())
 
 
@@ -148,7 +146,10 @@ def seeUsers():
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     text = request.form['search']
-    return text
+    prod = Products.query.filter(Products.name.like('%' + text + '%'))
+    prod = prod.order_by(Products.name).all()
+    return render_template('index.html', search=prod)
+
 
 @app.route('/dashboard')
 @login_required

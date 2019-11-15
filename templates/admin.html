@@ -30,13 +30,11 @@
   </head>
   <body>
     <div class="jumbotron">
-      <a class="btn btn-primary" href="/seeUsers" role="button"
-        >See Users</a>
-      
+      <a class="btn btn-primary" href="/seeUsers" role="button">See Users</a>
 
       <a class="btn btn-primary" href="/seeProducts" role="button"
-        >See Products</a>
-      
+        >See Products</a
+      >
     </div>
 
     <div class="container">
@@ -44,7 +42,7 @@
         {% if users %}
         <thead>
           <tr>
-            <th>Name</th>
+            <!-- <th>Name</th> -->
             <th>Username</th>
             <th>Email</th>
           </tr>
@@ -52,7 +50,7 @@
         <tbody>
           {% for user in users %}
           <tr>
-            <td>{{ user.name }}</td>
+            <!-- <td>{{ user.name }}</td> -->
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
           </tr>
