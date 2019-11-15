@@ -37,5 +37,5 @@ flask-bootstrap
 Flask-JWT
 gunicorn
 uwsgi
-psycopg2
-Whoosh==2.6.0
+
+
